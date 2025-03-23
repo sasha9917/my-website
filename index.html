@@ -1,40 +1,528 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instagram Login Page</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Фоксі - Найчарівніший Коргі</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap">
+    <style>
+        :root {
+            --primary: #4a6fa5;
+            --secondary: #6b8cae;
+            --accent: #93b5cf;
+            --light: #e8f1f9;
+            --dark: #2c3e50;
+            --text: #333333;
+            --background: #f9fbfd;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Хедер */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--light);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--light);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        /* Головна секція */
+        .hero {
+            padding-top: 100px;
+            padding-bottom: 50px;
+            text-align: center;
+            background-color: var(--light);
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        
+        .hero-text {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .hero-text h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: var(--dark);
+        }
+        
+        .hero-image {
+            flex: 1;
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        /* Особливості */
+        .features {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--primary);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-image {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .feature-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .feature-card:hover .feature-image img {
+            transform: scale(1.05);
+        }
+        
+        .feature-content {
+            padding: 20px;
+        }
+        
+        .feature-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        /* Галерея */
+        .gallery {
+            padding: 80px 0;
+            background-color: var(--light);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+        
+        /* Коментарі */
+        .comments {
+            padding: 80px 0;
+        }
+        
+        .comments-container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .comment {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comment:last-child {
+            border-bottom: none;
+        }
+        
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .comment-author {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .comment-date {
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        .comment-text {
+            margin-bottom: 15px;
+        }
+        
+        .comment-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .like-button {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .like-button:hover {
+            color: var(--primary);
+        }
+        
+        .like-button.active {
+            color: var(--primary);
+        }
+        
+        .new-comment {
+            margin-top: 30px;
+        }
+        
+        .comment-input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .submit-comment {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        
+        .submit-comment:hover {
+            background-color: var(--secondary);
+        }
+        
+        /* Футер */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-column a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Адаптивність */
+        @media (max-width: 768px) {
+            .hero-content {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="wrapper">
-        <div class="header">
-            <div class="logo">
-                <!-- Посилання на логотип Instagram -->
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/600px-Instagram_icon.png" alt="Instagram Logo" style="width: 175px;">
-            </div>
-            <div class="form">
-                <div class="input_field">
-                    <input type="text" placeholder="Phone number, username, or email" class="input">
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Фоксі</div>
+                <div class="nav-links">
+                    <a href="#about">Про Фоксі</a>
+                    <a href="#features">Особливості</a>
+                    <a href="#gallery">Галерея</a>
+                    <a href="#comments">Коментарі</a>
                 </div>
-                <div class="input_field">
-                    <input type="password" placeholder="Password" class="input">
+                <div class="auth-buttons">
+                    <button class="btn btn-secondary" id="login">Увійти</button>
+                    <button class="btn btn-primary" id="register">Реєстрація</button>
                 </div>
-                <button class="btn">Log In</button>
-            </div>
-            <div class="or">
-                <div class="line"></div>
-                <p>OR</p>
-                <div class="line"></div>
-            </div>
-            <div class="dif">
-                <button class="fb-login">Log in with Facebook</button>
-                <a href="#" class="forgot">Forgot password?</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="about">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Знайомтеся, Фоксі!</h1>
+                    <p>Фоксі — це чарівний коргі з великим серцем та нескінченною любов'ю до печива і прогулянок. Її енергія та дружелюбність роблять кожен день особливим!</p>
+                    <button class="btn btn-primary">Дізнатися більше</button>
+                </div>
+                <div class="hero-image">
+                    <img src="https://pplx-res.cloudinary.com/image/upload/v1742755968/user_uploads/dLXMnkqmsHymsGk/photo_2025-03-23_20-51-39.jpg" alt="Фоксі їсть печиво">
+                </div>
             </div>
         </div>
-        <div class="signup">
-            <p>Don't have an account? <a href="#">Sign up</a></p>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Особливості Фоксі</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="https://pplx-res.cloudinary.com/image/upload/v1742755968/user_uploads/bsvroGhXQpxqmCJ/photo_2025-03-23_20-51-44.jpg" alt="Дружелюбність Фоксі">
+                    </div>
+                    <div class="feature-content">
+                        <h3>Дружелюбність</h3>
+                        <p>Фоксі завжди рада новим друзям і легко знаходить спільну мову з іншими тваринами та людьми.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="https://pplx-res.cloudinary.com/image/upload/v1742755968/user_uploads/JPQkhnHMsYeFbWx/photo_2025-03-23_20-51-41.jpg" alt="Інтелект Фоксі">
+                    </div>
+                    <div class="feature-content">
+                        <h3>Інтелект</h3>
+                        <p>Її розум та кмітливість роблять її чудовою ученицею — вона швидко вчиться новим трюкам!</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="https://pplx-res.cloudinary.com/image/upload/v1742755968/user_uploads/WOgCHrzmmexxSHu/photo_2025-03-23_20-51-43.jpg" alt="Енергія Фоксі">
+                    </div>
+                    <div class="feature-content">
+                        <h3>Енергія</h3>
+                        <p>Фоксі обожнює активні прогулянки та веселі ігри на свіжому повітрі.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</body>
-</html>
+    </section>
+
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <h2 class="section-title">Галерея Фоксі</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://pplx-res.cloudinary.com/image/upload/v1742755968/user_uploads/dLXMnkqmsHymsGk/photo_2025-03-23_20-51-39.jpg" alt="Фоксі їсть печиво">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://pplx-res.cloudinary.com/image/upload/v1742755968/user_uploads/bsvroGhXQpxqmCJ/photo_2025-03-23_20-51-44.jpg" alt="Фоксі дивиться на вас">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://pplx-res.cloudinary.com/image/upload/v1742755968/user_uploads/WOgCHrzmmexxSHu/photo_2025-03-23_20-51-43.jpg" alt="Фоксі у кімнаті">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://pplx-res.cloudinary.com/image/upload/v1742755968/user_uploads/JPQkhnHMsYeFbWx/photo_2025-03-23_20-51-41.jpg" alt="Фоксі з печивом">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="comments" id="comments">
+        <div class="container">
+            <h2 class="section-title">Коментарі</h2>
+            <div class="comments-container">
+                <div class="comment">
+                    <div class="comment-header">
+                        <span class="comment-author">Марія</span>
+                        <span class="comment-date">20 березня 2025</span>
+                    </div>
+                    <p class="comment-text">Фоксі така чарівна! Обожнюю коргі, вони найкращі собаки у світі!</p>
+                    <div class="comment-actions">
+                        <button class="like-button active">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                            </svg>
+                            <span>12</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="comment">
+                    <div class="comment-header">
+                        <span class="comment-author">Олександр</span>
+                        <span class="comment-date">18 березня 2025</span>
+                    </div>
+                    <p class="comment-text">У мене теж є коргі, вони дуже розумні та енергійні собаки. Фокс
